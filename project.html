@@ -1,0 +1,123 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple JS Projects</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
+    section { background: white; padding: 15px; margin-bottom: 15px; border-radius: 8px; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
+    button { padding: 8px 12px; margin: 5px 0; cursor: pointer; }
+    input, textarea { width: 100%; padding: 6px; margin-top: 5px; }
+  </style>
+</head>
+<body>
+  <h1>Mini JS Projects</h1>  <section>
+    <h2>Click Counter</h2>
+    <p>Clicks: <span id="clicks">0</span></p>
+    <button onclick="clicks++;
+document.getElementById('clicks').textContent = clicks;">Click Me</button>
+  </section>  <section>
+    <h2>Color Changer</h2>
+    <button onclick="document.body.style.background = '#' + Math.floor(Math.random()*16777215).toString(16)">Change Color</button>
+  </section>  <section>
+    <h2>Form Validation</h2>
+    <form onsubmit="return validateForm()">
+      <input id="name" placeholder="Name">
+      <input id="email" placeholder="Email">
+      <button type="submit">Submit</button>
+      <p id="formMsg"></p>
+    </form>
+  </section>  <section>
+    <h2>Calculator</h2>
+    <input id="n1" type="number" placeholder="First number">
+    <input id="n2" type="number" placeholder="Second number">
+    <button onclick="calculate('+')">+</button>
+    <button onclick="calculate('-')">-</button>
+    <button onclick="calculate('')"></button>
+    <button onclick="calculate('/')">/</button>
+    <p id="calcResult"></p>
+  </section>  <section>
+    <h2>Clock</h2>
+    <p id="clock"></p>
+  </section>  <section>
+    <h2>Dark Mode</h2>
+    <button onclick="document.body.classList.toggle('dark')">Toggle Dark Mode</button>
+  </section>  <section>
+    <h2>Quote Generator</h2>
+    <button onclick="showQuote()">Get Quote</button>
+    <p id="quote"></p>
+  </section>  <section>
+    <h2>Image Slider</h2>
+    <img id="img" src="https://via.placeholder.com/200?text=1" style="width:100%;max-width:200px">
+    <br>
+    <button onclick="changeImage(-1)">Prev</button>
+    <button onclick="changeImage(1)">Next</button>
+  </section>  <section>
+    <h2>BMI Calculator</h2>
+    <input id="weight" placeholder="Weight (kg)">
+    <input id="height" placeholder="Height (m)">
+    <button onclick="checkBMI()">Calculate</button>
+    <p id="bmiResult"></p>
+  </section>  <section>
+    <h2>Word Counter</h2>
+    <textarea id="textArea" oninput="countWords()"></textarea>
+    <p>Words: <span id="wordCount">0</span></p>
+  </section>  <script>
+    let clicks = 0;
+
+    function validateForm() {
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const msg = document.getElementById('formMsg');
+      if (!name || !email.includes('@')) {
+        msg.textContent = 'Please enter valid details';
+        return false;
+      }
+      msg.textContent = 'All good!';
+      return false;
+    }
+
+    function calculate(op) {
+      const a = parseFloat(document.getElementById('n1').value);
+      const b = parseFloat(document.getElementById('n2').value);
+      let res = eval(${a} ${op} ${b});
+      document.getElementById('calcResult').textContent = 'Result: ' + res;
+    }
+
+    setInterval(() => {
+      document.getElementById('clock').textContent = new Date().toLocaleTimeString();
+    }, 1000);
+
+    function showQuote() {
+      const quotes = ["Keep going.", "You're doing great!", "Never give up."];
+      document.getElementById('quote').textContent = quotes[Math.floor(Math.random() * quotes.length)];
+    }
+
+    const imgs = [
+      "https://via.placeholder.com/200?text=1",
+      "https://via.placeholder.com/200?text=2",
+      "https://via.placeholder.com/200?text=3"
+    ];
+    let idx = 0;
+    function changeImage(dir) {
+      idx = (idx + dir + imgs.length) % imgs.length;
+      document.getElementById('img').src = imgs[idx];
+    }
+
+    function checkBMI() {
+      const w = parseFloat(document.getElementById('weight').value);
+      const h = parseFloat(document.getElementById('height').value);
+      const bmi = w / (h * h);
+      let msg = '';
+      if (bmi < 18.5) msg = 'Underweight';
+      else if (bmi < 25) msg = 'Normal';
+      else msg = 'Overweight';
+      document.getElementById('bmiResult').textContent = BMI: ${bmi.toFixed(1)} (${msg});
+    }
+
+    function countWords() {
+      const txt = document.getElementById('textArea').value.trim();
+      document.getElementById('wordCount').textContent = txt ? txt.split(/\s+/).length : 0;
+    }
+  </script></body>
+</html>
